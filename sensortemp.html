@@ -12,10 +12,12 @@
 <div style="width: 32%; display: inline-block; text-align: right;"><h2>Minimum</h2></div>
 </div>
 <div id="temps" style="margin-left: 25%; margin-right: 25%; padding: 1% 2% 1% 2%; background-color: yellow">
+<!-- creates the layout of the webpage that will display the sensor data -->
 
 </div>
 <script>
 	const Element = document.getElementById("temps");
+<!-- the fetch function gathers the data from the InfluxDB database, by using a Url that contains a InfluxQL query and returns it in Json format -->
 	fetch('http://34.194.24.230:8086/query?db=sensortemp&q=select+max(%22temperature_F%22)+%2Cmin(%22temperature_F%22)+from+%22Acurite-606TX%22+group+by+time(24h)+tz(%27America/New_York%27)').
 	then(function (response){
 	return response.json();
@@ -28,6 +30,7 @@
 	const number2 = document.createTextNode(obj.results[0].series[0].values[i][1].toString().substring(0,4)); 
 	const row3 = document.createElement("h3");
 	const number3 = document.createTextNode(obj.results[0].series[0].values[i][2].toString().substring(0,4)); 
+<!-- data is retrieved by using indexes corresponding to the arrays in the Json object; then the data is added to the HTML element-->
 
 	row1.style.color = "gray";
 	row1.style.width = "32%";
